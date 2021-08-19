@@ -3,6 +3,7 @@ package com.com.blog.view.post;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.com.blog.R;
+import com.com.blog.config.SessionUser;
 import com.com.blog.view.CustomAppBarActivity;
 import com.com.blog.view.InitActivity;
 import com.com.blog.viewModel.post.PostDetailViewModel;
@@ -88,6 +90,14 @@ public class PostDetailActivity extends CustomAppBarActivity implements InitActi
                 tvTitle.setText(model.getMdPost().getValue().getData().getTitle());
                 tvWriter.setText(model.getMdPost().getValue().getData().getUser().getUsername());
                 tvContent.setText(model.getMdPost().getValue().getData().getContent());
+
+                if (!SessionUser.user.getUsername().equals(model.getMdPost().getValue().getData().getUser().getUsername())){
+                    btnUpdate.setVisibility(View.INVISIBLE);
+                    btnDelete.setVisibility(View.INVISIBLE);
+                } else {
+                    btnUpdate.setVisibility(View.VISIBLE);
+                    btnDelete.setVisibility(View.VISIBLE);
+                }
             }
 
         });

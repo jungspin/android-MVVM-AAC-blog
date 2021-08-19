@@ -9,6 +9,7 @@ import com.google.gson.annotations.SerializedName;
 import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -28,6 +29,9 @@ import lombok.NoArgsConstructor;
          "updated": "2021-26-11T09:26:05"
 },*/
 
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class Post {
 
@@ -40,12 +44,12 @@ public class Post {
     private User user;
     private String created;
     private String updated;
-
-    public Timestamp getCreated(){
-        return Timestamp.valueOf(this.created);
-    }
-
-    public Timestamp getUpdated(){
-        return Timestamp.valueOf(this.updated);
-    }
+//
+//    public Timestamp getCreated(){
+//        return Timestamp.valueOf(this.created);
+//    }
+//
+//    public Timestamp getUpdated(){
+//        return Timestamp.valueOf(this.updated);
+//    }
 }

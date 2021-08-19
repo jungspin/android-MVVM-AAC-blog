@@ -76,8 +76,8 @@ public class JoinActivity extends CustomAppBarActivity implements InitActivity {
     @Override
     public void initViewModel() {
         model = new ViewModelProvider(this).get(AuthViewModel.class);
-        model.subscribe().observe(this, changeData -> {
-            if (model.subscribe().getValue() != null){
+        model.getCmRespDTO().observe(this, changeData -> {
+            if (model.getCmRespDTO().getValue() != null){
                 Log.d(TAG, "initLr: 회원가입 성공");
                 Intent intent = new Intent(mContext, LoginActivity.class);
                 startActivity(intent);

@@ -85,7 +85,7 @@ public class PostListActivity extends CustomAppBarActivity implements InitActivi
     @Override
     public void initData() {
 
-        //postsModel.findAll(authModel.getToken());
+        postsModel.findAll();
     }
 
     @Override
@@ -95,16 +95,18 @@ public class PostListActivity extends CustomAppBarActivity implements InitActivi
             postListAdapter.addItems(postsModel.getPosts().getValue());
         });
 
-        postsModel.subscribe().observe(this, data -> {
-            Log.d(TAG, "initViewModel: 옵저버 발동");
 
-
-            if (postsModel.subscribe().getValue().isLogin()) {
-                Log.d(TAG, "initLr: 로그인 성공 : " + postsModel.subscribe().getValue().getToken());
-
-            } else {
-                Log.d(TAG, "initViewModel: 로그인 실패");
-            }
-        });
+//        postsModel.getCmRespDTO().observe(this, data -> {
+//            Log.d(TAG, "initViewModel: 옵저버 발동");
+//
+//
+//            if (postsModel.getCmRespDTO().getValue().isLogin()) {
+//                Log.d(TAG, "initLr: 로그인 성공 : " + postsModel.subscribe().getValue().getToken());
+//
+//            } else {
+//                Log.d(TAG, "initViewModel: 로그인 실패");
+//            }
+//        });
     }
+
 }

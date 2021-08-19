@@ -34,14 +34,14 @@ public class PostListViewModel extends AuthViewModel {
 //        return super.getMdUser();
 //    }
 
-    public void findAll(String token){
+    public void findAll(){
        // Log.d(TAG, "findAll: " + getMdUser().getValue().getToken());
-        postService.findAll(token).enqueue(new Callback<CMRespDTO<List<Post>>>() {
+        postService.findAll().enqueue(new Callback<CMRespDTO<List<Post>>>() {
             @Override
             public void onResponse(Call<CMRespDTO<List<Post>>> call, Response<CMRespDTO<List<Post>>> response) {
-//                List<Post> posts = response.body().getData();
-//                //Log.d(TAG, "onResponse: " + posts.get(0).getTitle());
-//                mdPosts.setValue(posts);
+                List<Post> posts = response.body().getData();
+                //Log.d(TAG, "onResponse: " + posts.get(0).getTitle());
+                mdPosts.setValue(posts);
                 Log.d(TAG, "onResponse: 통신 성공");
             }
 

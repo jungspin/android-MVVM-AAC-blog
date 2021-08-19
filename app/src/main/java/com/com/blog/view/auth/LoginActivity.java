@@ -84,10 +84,10 @@ public class LoginActivity extends AppCompatActivity implements InitActivity {
     @Override
     public void initViewModel() {
         model = new ViewModelProvider(this).get(AuthViewModel.class);
-        model.subscribe().observe(this, data ->{
+        model.getCmRespDTO().observe(this, data ->{
 
-            if (model.subscribe().getValue().isLogin()){
-                Log.d(TAG, "initLr: 로그인 성공 : "+ model.subscribe().getValue().getToken());
+            if (model.getCmRespDTO().getValue().getCode() == 1){
+                Log.d(TAG, "initLr: 로그인 성공 : "+ model.getCmRespDTO().getValue().getMsg());
 
                 Intent intent = new Intent(mContext, PostListActivity.class);
                 startActivity(intent);

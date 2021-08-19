@@ -26,7 +26,7 @@ public class HeaderInterceptor implements Interceptor {
         Log.d(TAG, "intercept: 실행됨");
 
         Request request = chain.request().newBuilder()
-                .addHeader("Authorization", "").build();
+                .addHeader("Authorization", SessionUser.token).build();
         return chain.proceed(request);
     }
 }

@@ -22,7 +22,7 @@ import retrofit2.http.Path;
 public interface PostService {
 
     @GET("/post")
-    Call<CMRespDTO<List<Post>>> findAll(@Header("Authorization")String token);
+    Call<CMRespDTO<List<Post>>> findAll();
 
     @GET("/post/{id}")
     Call<CMRespDTO<Post>> findById(@Path("id")int postId/*, @Header("Authorization")String token*/);
@@ -42,7 +42,7 @@ public interface PostService {
     Retrofit retrofit = new Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl("http://172.30.1.40:8080")
-            //.client(client)
+            .client(client)
             .build();
 
     PostService service = retrofit.create(PostService.class);

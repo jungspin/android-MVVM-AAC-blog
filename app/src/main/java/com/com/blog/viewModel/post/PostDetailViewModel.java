@@ -68,6 +68,19 @@ public class PostDetailViewModel extends AuthViewModel {
     }
 
     public void insert(Post post){
+        postService.insert(post).enqueue(new Callback<CMRespDTO<Post>>() {
+            @Override
+            public void onResponse(Call<CMRespDTO<Post>> call, Response<CMRespDTO<Post>> response) {
+                if(response.body().getCode() == 1){
+                    mdPost.setValue(response.body());
 
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CMRespDTO<Post>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
     }
 }

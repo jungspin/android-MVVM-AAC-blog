@@ -22,16 +22,15 @@ public class AuthViewModel extends ViewModel {
 
     private static final String TAG = "AuthViewModel";
 
-    private MutableLiveData<AuthDTO> mdAuthDTO = new MutableLiveData<>();
+    private MutableLiveData<CMRespDTO> cmRespDTO = new MutableLiveData<>();
     private UserService userService = UserService.service;
 
-    private AuthDTO authDTO;
 
 
-    public MutableLiveData<AuthDTO> subscribe(){
-        mdAuthDTO.setValue(getAuthDTO());
-        return mdAuthDTO;
+    public MutableLiveData<CMRespDTO> getCmRespDTO(){
+        return cmRespDTO;
     }
+
 
     public void join(User user){
         userService.join(user).enqueue(new Callback<CMRespDTO<User>>() {
@@ -39,9 +38,10 @@ public class AuthViewModel extends ViewModel {
             public void onResponse(Call<CMRespDTO<User>> call, Response<CMRespDTO<User>> response) {
                 Log.d(TAG, "onResponse:  " + response.body());
                 if (response.body().getCode() == 1){
-                    AuthDTO authDTO = AuthDTO.builder().user(response.body().getData()).build();
-                    Log.d(TAG, "onResponse: auth : " + authDTO);
-                    mdAuthDTO.setValue(authDTO);
+//                    AuthDTO authDTO = AuthDTO.builder().user(response.body().getData()).build();
+//                    Log.d(TAG, "onResponse: auth : " + authDTO);
+//                    mdAuthDTO.setValue(authDTO);
+                    cmRespDTO.setValue(response.body());
                 }
             }
 
@@ -57,12 +57,15 @@ public class AuthViewModel extends ViewModel {
           @Override
           public void onResponse(Call<CMRespDTO<User>> call, Response<CMRespDTO<User>> response) {
               if (response.body().getCode() == 1){
-                    AuthDTO authDTO = AuthDTO.builder()
-                            .user(response.body().getData())
-                            .token(response.headers().get("Authorization"))
-                            .isLogin(true).build();
-                    setAuthDTO(authDTO);
-                    mdAuthDTO.setValue(authDTO);
+//                    AuthDTO authDTO = AuthDTO.builder()
+//                            .user(response.body().getData())
+//                            .token(response.headers().get("Authorization"))
+//                            .isLogin(true).build();
+//                    mdAuthDTO.setValue(authDTO);
+                  SessionUser.user = response.body().getData();
+                  SessionUser.token = response.headers().get("Authorization");
+                  cmRespDTO.setValue(response.body());
+
 
               } else {
 
@@ -77,14 +80,6 @@ public class AuthViewModel extends ViewModel {
           }
       });
 
-    }
-
-    public AuthDTO getAuthDTO() {
-        return authDTO;
-    }
-
-    public void setAuthDTO(AuthDTO authDTO) {
-        this.authDTO = authDTO;
     }
 
 }
