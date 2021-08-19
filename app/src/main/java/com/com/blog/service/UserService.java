@@ -21,7 +21,7 @@ public interface UserService {
 
     Retrofit retrofit = new Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("http://172.30.1.3:8080")
+            .baseUrl("http://172.30.1.40:8080")
             .build();
 
     UserService service = retrofit.create(UserService.class);

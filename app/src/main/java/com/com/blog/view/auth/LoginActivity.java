@@ -17,7 +17,7 @@ import com.com.blog.service.dto.LoginDTO;
 import com.com.blog.util.MyToast;
 import com.com.blog.view.InitActivity;
 import com.com.blog.view.post.PostListActivity;
-import com.com.blog.viewModel.auth.LoginViewModel;
+import com.com.blog.viewModel.auth.AuthViewModel;
 
 
 public class LoginActivity extends AppCompatActivity implements InitActivity {
@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity implements InitActivity {
     private Button btnLogin;
     private TextView tvLinkJoin;
 
-    private LoginViewModel model;
+    private AuthViewModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,15 +83,17 @@ public class LoginActivity extends AppCompatActivity implements InitActivity {
 
     @Override
     public void initViewModel() {
-        model = new ViewModelProvider(this).get(LoginViewModel.class);
-        model.getMdResp().observe(this, data ->{
+        model = new ViewModelProvider(this).get(AuthViewModel.class);
+        model.subscribe().observe(this, data ->{
 
-            if (model.getMdResp().getValue().getCode() == 1){
-                Log.d(TAG, "initLr: 로그인 성공");
-                Log.d(TAG, "initViewModel: " + SessionUser.user.getUsername());
+            if (model.subscribe().getValue().isLogin()){
+                Log.d(TAG, "initLr: 로그인 성공 : "+ model.subscribe().getValue().getToken());
+
                 Intent intent = new Intent(mContext, PostListActivity.class);
                 startActivity(intent);
                 finish();
+            } else {
+                Log.d(TAG, "initViewModel: 로그인 실패");
             }
 
         });
